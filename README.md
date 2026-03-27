@@ -62,7 +62,7 @@ docker compose up -d --build
 
 ---
 
-## TODOs / ideias
+## Ideias
 
 - [ ] Persistir o histórico em banco (agora perde quando reinicia)
 - [ ] Notificação por algum app de mensagem quando achar oportunidade
