@@ -1,17 +1,20 @@
-# Bot de Arbitragem Bitcoin - Binance vs Coinbase
+# Bot de Arbitragem Bitcoin
 
-Projeto que fiz pra estudar Spring Boot e Docker. A ideia é monitorar o preço do BTC nas duas exchanges e identificar quando tem diferença de preço suficiente pra ser lucrativo comprar em uma e vender na outra (arbitragem).
+Esse projeto eu consumi a API da Binance e da Coinbase
 
-Rodei em container Docker e subi numa instância EC2. O processo foi bem tranquilo.
+Projeto que fiz estudando Spring Boot e Docker. A ideia é monitorar o preço do BTC nas duas exchanges e identificar quando tem diferença de preço suficiente pra ser lucrativo comprar em uma e vender na outra.
+
+Feito com container Docker, pra ser possível subir em um EC2.
 
 ---
 
 ## Como funciona
 
-A cada 8 segundos o bot busca o preço do BTC na Binance e na Coinbase, calcula o spread entre elas e loga no console se tiver alguma oportunidade.
+A cada 8 segundos o bot busca o preço do Bitcoin na Binance e na Coinbase, calcula o spread entre elas e loga no console se tiver alguma oportunidade.
 
+Isso aparece no terminal bem dessa forma:
 ```
-[14:32:01] Verificando precos...
+Verificando precos...
   BINANCE | compra: $67005.0 | venda: $67000.0
   COINBASE | compra: $67380.0 | venda: $67370.0
   Spread: 0.544% - sem oportunidade no momento
@@ -31,51 +34,37 @@ A cada 8 segundos o bot busca o preço do BTC na Binance e na Coinbase, calcula 
 
 ## Como rodar
 
-**Com Docker (recomendado):**
+**Com o Docker:**
 ```bash
 docker compose up --build
 ```
 
-**Sem Docker (so pra testar rapido):**
+**Sem Docker (so pra teste rapido e local):**
 ```bash
 mvn spring-boot:run
 ```
 
-Acessa: http://localhost:8080/arbitragem
+Adiciona no final do link /arbitragem, dessa forma: http://localhost:8080/arbitragem
 
 ---
 
-## Deploy na EC2
+## Deploy no EC2
 
 ```bash
 # 1. copia os arquivos pra instancia
-scp -i sua-chave.pem -r . ubuntu@SEU_IP_EC2:~/arb-bot
+scp -i (sua key).pem -r . ubuntu@SeuIpDoEC2:~/arb-bot
 
-# 2. entra na instancia e sobe
-ssh -i sua-chave.pem ubuntu@SEU_IP_EC2
+# 2. entra nela e sobe pelo ssh
+ssh -i (sua key).pem ubuntu@SeuIpDoEC2
 cd arb-bot
 docker compose up -d --build
 ```
-
-Lembrando de liberar a porta 8080 no Security Group da EC2.
-
----
-
-## O que aprendi com isso
-
-Fiz isso depois de estudar AWS Lambda e quis testar o Docker também.
-
-O Lambda resolveria bem se eu quisesse só verificar o spread uma vez por trigger (ex: via EventBridge). Mas como esse bot precisa ficar rodando continuamente e manter um histórico em memória, o Docker em EC2 fez mais sentido.
 
 ---
 
 ## TODOs / ideias
 
 - [ ] Persistir o histórico em banco (agora perde quando reinicia)
-- [ ] Notificação por email/telegram quando achar oportunidade boa
+- [ ] Notificação por algum app de mensagem quando achar oportunidade
 - [ ] Calcular taxas de forma mais precisa
-- [ ] Adicionar mais pares além do BTC
-
----
-
-> Obs: isso é só pra estudo, não é recomendação de investimento. Arbitragem real é bem mais complicada que isso.
+- [ ] Adicionar mais pares além do BTC e permitir a escolha, mesmo que o programa ainda não terá interface já que é um projeto inteiramente backend
