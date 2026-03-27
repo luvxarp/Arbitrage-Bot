@@ -7,7 +7,7 @@ services:
     ports:
       - "8080:8080"
     restart: unless-stopped
-    # healthcheck basico pra saber se ta vivo
+
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/arbitragem"]
       interval: 30s
