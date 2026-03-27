@@ -1,10 +1,9 @@
 # Bot de Arbitragem Bitcoin
 
-Esse projeto eu consumi a API da Binance e da Coinbase
+Neste projeto, eu consumo a API da Binance e da Coinbase.
+Projeto que fiz estudando Spring Boot. A ideia é monitorar o preço do BTC nas duas exchanges e identificar quando tem diferença de preço suficiente pra ser lucrativo comprar em uma e vender na outra.
 
-Projeto que fiz estudando Spring Boot e Docker. A ideia é monitorar o preço do BTC nas duas exchanges e identificar quando tem diferença de preço suficiente pra ser lucrativo comprar em uma e vender na outra.
-
-Feito com container Docker, pra ser possível subir em um EC2.
+Feito também com Docker, pra ser possível subir em um EC2.
 
 ---
 
